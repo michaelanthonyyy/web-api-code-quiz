@@ -1,0 +1,17 @@
+.timer {
+    color: purple;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+}
+
+.high-scores {
+    color: purple;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 25px;
+    font-family: Arial, sans-serif;
+}
