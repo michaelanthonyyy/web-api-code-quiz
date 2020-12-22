@@ -14,4 +14,32 @@
     left: 0;
     font-size: 25px;
     font-family: Arial, sans-serif;
+    pointer-events: auto;
+}
+
+.start-page {
+    color: purple;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+.go-back {
+    display: inline-block;
+    background-color: purple;
+    color: black;
+
+}
+
+.clear {
+    display: inline-block;
+    background-color: purple;
+    color: black;
+}
+
+.wrapper {
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    bottom: 50%;
 }
