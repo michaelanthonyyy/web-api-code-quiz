@@ -1,15 +1,14 @@
 var timeEl = document.querySelector(".timer");
-var startEl = document.querySelector(".start-page");
+var startEl = document.querySelector(".start-button");
 var questionsEl = document.querySelector(".questions");
 var endEl = document.querySelector(".end-game");
 var clearEl = document.querySelector(".clear");
 
+
 var quizQuestions = [
-    {question: "Who played Jim's love interest that eventually became the regional manager of the Uitca Branch ?",
-    answers: { a: "Carol Stills",
-    b: "Pam Beesly",
-    c: "Karen Filippelli"},
-    correctAnswer: "c" }, 
+    {question: "Who played Jim's love interest that eventually became the regional manager of the Utica Branch ?",
+    answers: ["Carol Stills", "Pam Beesly", "Karen Filippelli"],
+    correctAnswer: "Karen Filippelli" }, 
 
     {question: "What did Prison Mike say the worst part about prison was?",
     answers: { a: "The prison guards",
@@ -37,7 +36,6 @@ var quizQuestions = [
 ]
 
 
-
 //clear button on highscores.html clears local storage for previous high scores
 clearEl.addEventListener("click", function () {
     localStorage.clear();
@@ -58,3 +56,24 @@ function timer() {
     }, 1000);
 }
 
+startEl.addEventListener("click", function(){
+    timer ();
+    startEl.style.visibility = 'hidden';
+    // console.log(quizQuestions[0].question);
+    // console.log(quizQuestions[0].answers[0]);
+    var pEl = document.createElement("p");
+    pEl.textContent= quizQuestions[0].question;
+    questionsEl.appendChild(pEl);
+    for (i=0; i < quizQuestions[0].answers.length; i++){
+        var button = document.createElement("button");
+        button.textContent = quizQuestions[0].answers[i];
+        button.setAttribute("value", quizQuestions[0].answers[i]);
+        questionsEl.appendChild(button);
+        button.addEventListener("click", stylePage);
+}})
+
+
+//function timer() should start after pressing Start Quiz on splash page
+//timer should also subtract time for any incorrect answers
+//splash page message should be replaced by questions and possible answers
+//after each question display next question and answer set along with if the previous question was correct or
