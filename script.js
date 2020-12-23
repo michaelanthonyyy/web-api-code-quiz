@@ -9,32 +9,32 @@ var questionId = 0;
 var quizQuestions = [
     {
         question: "Who played Jim's love interest that eventually became the regional manager of the Utica Branch ?",
-        answers: ["Carol Stills", "Pam Beesly", "Karen Filippelli"],
-        correctAnswer: "Karen Filippelli"
+        answers: ["A: Carol Stills", "B: Pam Beesly", "C: Karen Filippelli"],
+        correctAnswer: "C: Karen Filippelli"
     },
 
     {
         question: "What did Prison Mike say the worst part about prison was?",
-        answers: ["The prison guards", "The DEMENTORS", "No freedom"],
-        correctAnswer: "The DEMENTORS"
+        answers: ["A: The prison guards", "B: The DEMENTORS", "C: No freedom"],
+        correctAnswer: "B: The DEMENTORS"
     },
 
     {
         question: "Which song was played while everyone danced down the aisle at Pam and Jim's Wedding?",
-        answers: ["Chris Brown - Forever", "Bruno Mars - Marry You", "Jagged Edge - Meet Me At The Alter"],
+        answers: ["A: Chris Brown - Forever", "B: Bruno Mars - Marry You", "C: Jagged Edge - Meet Me At The Alter"],
         correctAnswer: "Chris Brown - Forever"
     },
 
     {
         question: "Which two characters 'dueled' over Angela?",
-        answers: ["Ryan and Michael", "Dwight and Andy", "David Wallace and Robert California"],
-        correctAnswer: "Dwight and Andy"
+        answers: ["A: Ryan and Michael", "B: Dwight and Andy", "C: David Wallace and Robert California"],
+        correctAnswer: "B: Dwight and Andy"
     },
 
     {
         question: "What kind of van did the Michael Scott Paper Company drive?",
-        answers: ["Chrysler Sebring", "Old Korean Scranton Hallelujah Church", "Meridith's van"],
-        correctAnswer: "Old Korean Scranton Hallelujah Church"
+        answers: ["A: Chrysler Sebring", "B: Old Korean Scranton Hallelujah Church", "C: Meridith's van"],
+        correctAnswer: "B: Old Korean Scranton Hallelujah Church"
     },
 ]
 
@@ -46,10 +46,17 @@ function timer() {
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
-            sendMessage();
+            // sendMessage();
         }
     }, 1000);
 }
+
+startEl.addEventListener("click", function () {
+    timer();
+    startEl.style.visibility = 'hidden';
+    questionNumber();
+}
+)
 
 function questionNumber() {
     var pEl = document.createElement("p");
@@ -64,23 +71,16 @@ function questionNumber() {
         questionsEl.appendChild(button);
     }
     questionId++;
-    if (button.value === questionsNumber[questionId].correctAnswer) {
-        questionId++;
-    } else {
-        wrongAnswer();
-        questionId++;
-    }
+    // if (button.value === questionsNumber[questionId].correctAnswer) {
+    //     questionId++;
+    // } else {
+    //     wrongAnswer();
+    //     questionId++;
+    // }
 
 }
 
 
-startEl.addEventListener("click", function () {
-    timer();
-    startEl.style.visibility = 'hidden';
-    questionNumber();
-}
-)
-// button.addEventListener("click", stylePage);
 
 function wrongAnswer() {
     secondsLeft - 15;
