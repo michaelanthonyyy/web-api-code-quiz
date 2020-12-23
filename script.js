@@ -1,10 +1,12 @@
 var timeEl = document.querySelector(".timer");
 var startEl = document.querySelector(".start-button");
 var questionsEl = document.querySelector(".questions");
+var mainEl = document.querySelector(".main-content");
 var endEl = document.querySelector(".end-game");
 var clearEl = document.querySelector(".clear");
 var secondsLeft = 90;
 var questionId = 0;
+var answerId = 0;
 
 var quizQuestions = [
     {
@@ -22,7 +24,7 @@ var quizQuestions = [
     {
         question: "Which song was played while everyone danced down the aisle at Pam and Jim's Wedding?",
         answers: ["A: Chris Brown - Forever", "B: Bruno Mars - Marry You", "C: Jagged Edge - Meet Me At The Alter"],
-        correctAnswer: "Chris Brown - Forever"
+        correctAnswer: "A: Chris Brown - Forever"
     },
 
     {
@@ -58,6 +60,25 @@ startEl.addEventListener("click", function () {
 }
 )
 
+function chooseAnswer() {
+    button.addEventListener("click", function () {
+        if (button.value === quizQuestions[questionId].correctAnswer) {
+            alert("That's Correct");
+            questionId++;
+        } else {
+            secondsLeft - 10;
+            alert("You're wrong!");
+            questionId++;
+        }
+    });
+}
+
+function nextQuestion() {
+    for (i = 0; i < quizQuestions[questionId].length; i++) {
+    questionId++;    
+    }
+}
+
 function questionNumber() {
     var pEl = document.createElement("p");
     pEl.textContent = quizQuestions[questionId].question;
@@ -66,21 +87,21 @@ function questionNumber() {
         var button = document.createElement("button");
         button.textContent = quizQuestions[questionId].answers[i];
         button.setAttribute("value", quizQuestions[questionId].answers[i]);
-        button.addEventListener("click", function () {
-        });
         questionsEl.appendChild(button);
-    }
-    questionId++;
-    // if (button.value === questionsNumber[questionId].correctAnswer) {
-    //     questionId++;
-    // } else {
-    //     wrongAnswer();
-    //     questionId++;
-    // }
+        button.addEventListener("click", function () {
+        if (button.value === quizQuestions[questionId].correctAnswer) {
+            alert("That's Correct");   
+            nextQuestion();       
+        } else {
+            secondsLeft - 10;
+            alert("You're wrong!");
+            nextQuestion();
+        }
+    })
+    };
 
 }
-
-
+    
 
 function wrongAnswer() {
     secondsLeft - 15;
@@ -93,7 +114,10 @@ function wrongAnswer() {
 clearEl.addEventListener("click", function () {
     localStorage.clear();
 })
-//function timer() should start after pressing Start Quiz on splash page
+
+
+
+
 //timer should also subtract time for any incorrect answers
 //splash page message should be replaced by questions and possible answers
 //after each question display next question and answer set along with if the previous question was correct or

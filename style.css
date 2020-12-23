@@ -22,9 +22,6 @@ body button {
     font-family: Arial, sans-serif;
 }
 
-#button {
-    font-weight: bold;
-}
 
 .questions {
     font-weight: bold;
@@ -33,6 +30,7 @@ body button {
     top: 50%;
     left: 50%;
 }
+
 
 .high-scores {
     color: white;
@@ -44,12 +42,14 @@ body button {
     pointer-events: auto;
 }
 
+
 .start-page {
     color: white;
     position: fixed;
     top: 50%;
     left: 50%;
 }
+
 
 .go-back {
     display: inline-block;
@@ -58,11 +58,13 @@ body button {
 
 }
 
+
 .clear {
     display: inline-block;
     background-color: purple;
     color: white;
 }
+
 
 .wrapper {
     text-align: center;
@@ -71,6 +73,7 @@ body button {
     bottom: 50%;
     display: none;
 }
+
 
 .end-game {
     text-align: center;
