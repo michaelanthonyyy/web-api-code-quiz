@@ -4,10 +4,16 @@ var questionsEl = document.querySelector(".questions");
 var mainEl = document.querySelector(".main-content");
 var endEl = document.querySelector(".end-game");
 var clearEl = document.querySelector(".clear");
+var submitEl = document.querySelector(".submit");
+var initialsEl = document.querySelector(".initials");
+var wrapperEl = document.querySelector(".wrapper");
+var cardEl = document.querySelector(".card-body");
+var highScoresButton = document.querySelector(".high-scores");
 var secondsLeft = 90;
 var questionId = 0;
 var answerId = 0;
-
+var timerInterval;
+var local = 0;
 var quizQuestions = [
     {
         question: "Who played Jim's love interest that eventually became the regional manager of the Utica Branch ?",
@@ -42,13 +48,17 @@ var quizQuestions = [
 
 
 function timer() {
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timeEl.textContent = "Timer: " + secondsLeft;
 
         if (secondsLeft === 0) {
             clearInterval(timerInterval);
-            // sendMessage();
+            questionsEl.style.visibility = 'hidden';
+            if (--timer < 0) {
+                timer = duration;
+
+            }
         }
     }, 1000);
 }
@@ -60,54 +70,71 @@ startEl.addEventListener("click", function () {
 }
 )
 
-function chooseAnswer() {
-    button.addEventListener("click", function () {
-        if (button.value === quizQuestions[questionId].correctAnswer) {
-            alert("That's Correct");
-            questionId++;
-        } else {
-            secondsLeft - 10;
-            alert("You're wrong!");
-            questionId++;
-        }
-    });
-}
-
-function nextQuestion() {
-    for (i = 0; i < quizQuestions[questionId].length; i++) {
-    questionId++;    
-    }
-}
 
 function questionNumber() {
     var pEl = document.createElement("p");
     pEl.textContent = quizQuestions[questionId].question;
     questionsEl.appendChild(pEl);
-    for (i = 0; i < quizQuestions[questionId].answers.length; i++) {
+    for (var i = 0; i < quizQuestions[questionId].answers.length; i++) {
         var button = document.createElement("button");
         button.textContent = quizQuestions[questionId].answers[i];
         button.setAttribute("value", quizQuestions[questionId].answers[i]);
         questionsEl.appendChild(button);
         button.addEventListener("click", function () {
-        if (button.value === quizQuestions[questionId].correctAnswer) {
-            alert("That's Correct");   
-            nextQuestion();       
-        } else {
-            secondsLeft - 10;
-            alert("You're wrong!");
-            nextQuestion();
-        }
-    })
+            if (this.value === quizQuestions[questionId].correctAnswer) {
+                alert("That's Correct");
+                questionsEl.innerHTML = "";
+                questionId++;
+                if (questionId < 5) {
+                    questionNumber();
+                } else {
+                    showScore();
+
+                }
+            } else {
+                secondsLeft = secondsLeft - 10;
+                timeEl.textContent = "Timer: " + secondsLeft;
+                alert("You're wrong!");
+                questionsEl.innerHTML = "";
+                questionId++;
+                if (questionId < 5) {
+                    questionNumber();
+                } else {
+                    showScore();
+                }
+            }
+        })
     };
-
-}
-    
-
-function wrongAnswer() {
-    secondsLeft - 15;
 }
 
-// endEl.style.visibility = 'hidden';
+submitEl.addEventListener("click", function () {
+    var score = {
+        initial: initialsEl.value,
+        timescore: secondsLeft
+    }
+    localStorage.setItem(local, score);
+    local++;
+})
+
+function showScore() {
+    clearInterval(timerInterval);
+    console.log(secondsLeft);
+    questionsEl.style.display = 'none';
+    endEl.style.display = 'block';
+}
+
+highScoresButton.addEventListener("click", function () {
+    questionsEl.style.display = 'none';
+    endEl.style.display = 'none';
+    wrapperEl.style.display = 'block';
+    for (var i = 0; i < 10; i++) {
+        var highP = document.createElement("p");
+        highP.textContent = JSON.stringify(localStorage.getItem(i));;
+        cardEl.appendChild(highP);
+        console.log(highP);
+    }
+})
+
 
 
 
